@@ -1,0 +1,5 @@
+**/.DS_Store
+/terraform.tfvars
+/.idea/
+/.terraform/
+/.terraform.lock.hcl
