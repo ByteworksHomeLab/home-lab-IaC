@@ -98,6 +98,22 @@ sudo vgcreate guest_images_lvm /dev/sda1
   Volume group "guest_images_lvm" successfully created
 sudo vgcreate guest_ssd_lvm /dev/nvme0n1p1
   Volume group "guest_ssd_lvm" successfully created
+```
 
+```shell
+sudo fdisk -l | grep 'Disk /'
+Disk /dev/nvme0n1: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk /dev/sdb: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk /dev/sdc: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk /dev/sda: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
 
+stevemitchell@zeus:~$
+sudo vgcreate guest_images_lvm /dev/sda1
+  Volume group "guest_images_lvm" successfully created
+stevemitchell@zeus:~$
+sudo vgcreate guest_ssd_lvm /dev/nvme0n1p1
+  Volume group "guest_ssd_lvm" successfully created
+stevemitchell@zeus:~$
+sudo vgextend guest_images_lvm /dev/sdb1
+  Volume group "guest_images_lvm" successfully extended
 ```

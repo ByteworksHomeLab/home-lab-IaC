@@ -31,7 +31,7 @@ resource "dns_a_record_set" "nike" {
 
 resource "dns_a_record_set" "zeus" {
   zone      = "byteworksinc.com."
-  addresses = ["192.168.1.12"]
+  addresses = ["192.168.1.13"]
   name      = "zeus"
   #  Default is 1 hour, but since this is a home lab, we want less
   ttl       = 300
