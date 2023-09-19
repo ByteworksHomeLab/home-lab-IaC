@@ -1,4 +1,4 @@
-resource "dns_a_record_set" "athena" {
+resource "dns_a_record_set" "artemis" {
   zone      = "byteworksinc.com."
   addresses = ["192.168.3.9"]
   name      = "artemis"
@@ -45,6 +45,14 @@ resource "dns_a_record_set" "nas1" {
   ttl       = 300
 }
 
+resource "dns_a_record_set" "pihole" {
+  zone      = "byteworksinc.com."
+  addresses = ["192.168.1.8"]
+  name      = "pihole"
+  #  Default is 1 hour, but since this is a home lab, we want less
+  ttl       = 300
+}
+
 resource "dns_a_record_set" "unifi" {
   zone      = "byteworksinc.com."
   addresses = ["192.168.3.6"]
@@ -53,10 +61,3 @@ resource "dns_a_record_set" "unifi" {
   ttl       = 300
 }
 
-resource "dns_a_record_set" "hp-8610-printer" {
-  zone      = "byteworksinc.com."
-  addresses = ["192.168.3.250"]
-  name      = "hp-8610-printer"
-  #  Default is 1 hour, but since this is a home lab, we want less
-  ttl       = 300
-}

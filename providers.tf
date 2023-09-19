@@ -3,7 +3,7 @@ terraform {
     bucket         = "byteworksinc-terraform-state"
     key            = "terraform.tfstate"
     region         = "us-east-2"
-    dynamodb_table = "terraform-lock"
+    dynamodb_table = "homelab-terraform-lock"
   }
 
   required_providers {
@@ -11,14 +11,15 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.17.0"
     }
+
     dns = {
       source  = "hashicorp/dns"
       version = "3.3.2"
     }
-    acme = {
-      source  = "vancluever/acme"
-      version = "~> 2.5.3"
-    }
+#    acme = {
+#      source  = "vancluever/acme"
+#      version = "~> 2.5.3"
+#    }
   }
 }
 
@@ -35,9 +36,9 @@ provider "dns" {
   }
 }
 
-provider "acme" {
+#provider "acme" {
 #  server_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
-  server_url = "https://acme-v02.api.letsencrypt.org/directory"
-}
+##  server_url = "https://acme-v02.api.letsencrypt.org/directory"
+#}
 
 

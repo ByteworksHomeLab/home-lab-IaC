@@ -56,7 +56,8 @@ network:
       macaddress: 2c:44:fd:19:81:d1
       addresses: [192.168.3.11/24]
       nameservers:
-        addresses: [192.168.3.7, 8.8.8.8, 8.8.8.4]
+        addresses: [192.168.3.7]
+        search: [byteworksinc.com]
       routes:
         - to: default
           via: 192.168.3.1
@@ -117,7 +118,8 @@ network:
       macaddress: 64:51:06:4c:ba:16
       addresses: [192.168.3.12/24]
       nameservers:
-         addresses: [192.168.3.7, 8.8.8.8, 8.8.8.4]
+         addresses: [192.168.3.7]
+         search: [byteworksinc.com]
       routes:
          - to: default
            via: 192.168.3.1
@@ -176,7 +178,8 @@ network:
       macaddress: a0:d3:c1:1a:c8:81
       addresses: [192.168.3.13/24]
       nameservers:
-         addresses: [192.168.3.7, 8.8.8.8, 8.8.8.4]
+         addresses: [192.168.3.7]
+         search: [byteworksinc.com]
       routes:
          - to: default
            via: 192.168.3.1
