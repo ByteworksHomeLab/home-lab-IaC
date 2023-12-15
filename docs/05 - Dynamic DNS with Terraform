@@ -1,6 +1,12 @@
+# Configuration DNS on Ubuntu 22.04
+
+https://www.ionos.com/digitalguide/server/configuration/change-dns-server-on-ubuntu/#:~:text=Step%201%3A%20Launch%20the%20system,server%20connection%20for%20a%20moment.
+
+
 # Dynamic bind updates
 
 https://stackoverflow.com/questions/76623550/permissions-error-when-creating-an-a-record
+
 
 # Update DNS with Terraform Provider
 ```shell
