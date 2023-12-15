@@ -1,10 +1,10 @@
 
 ```shell
-ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.3.7
+ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.3.2
 ```
 
 ```shell
-sudo hostnamectl set-hostname ns1 --static
+sudo hostnamectl set-hostname poseiden --static
 
 sudo vi /etc/hosts
 ```
@@ -13,7 +13,7 @@ Etc Hosts
 
 ```text
 127.0.0.1 localhost.localdomain localhost
-192.168.3.7 ns1.byteworksinc.com ns1
+192.168.3.2 poseiden.byteworksinc.com poseiden
 
 # The following lines are desirable for IPv6 capable hosts
 ::1 ip6-localhost ip6-loopback

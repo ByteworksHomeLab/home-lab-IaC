@@ -29,7 +29,7 @@ provider "aws" {
 
 provider "dns" {
   update {
-    server        = "192.168.3.7"
+    server        = "192.168.3.2"
     key_name      = "tsig-key."
     key_algorithm = "hmac-sha256"
     key_secret    = var.tsig_key

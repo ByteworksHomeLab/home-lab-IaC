@@ -30,7 +30,7 @@ ip a show
 2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 2c:44:fd:19:81:d1 brd ff:ff:ff:ff:ff:ff
     altname enp0s25
-    inet 192.168.3.11/24 brd 192.168.3.255 scope global eno1
+    inet 192.168.3.5/24 brd 192.168.3.255 scope global eno1
        valid_lft forever preferred_lft forever
     inet6 fe80::2e44:fdff:fe19:81d1/64 scope link
        valid_lft forever preferred_lft forever
@@ -54,9 +54,9 @@ network:
       dhcp6: false
       interfaces: [ eno1 ]
       macaddress: 2c:44:fd:19:81:d1
-      addresses: [192.168.3.11/24]
+      addresses: [192.168.3.5/24]
       nameservers:
-        addresses: [192.168.3.7]
+        addresses: [192.168.3.2]
         search: [byteworksinc.com]
       routes:
         - to: default
@@ -78,7 +78,7 @@ ip a
 
 5: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 2c:44:fd:19:81:d1 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.3.11/24 brd 192.168.3.255 scope global br0
+    inet 192.168.3.5/24 brd 192.168.3.255 scope global br0
        valid_lft forever preferred_lft forever
     inet6 fe80::2e44:fdff:fe19:81d1/64 scope link
        valid_lft forever preferred_lft forever
@@ -92,7 +92,7 @@ ip a show
 2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 64:51:06:4c:ba:16 brd ff:ff:ff:ff:ff:ff
     altname enp0s25
-    inet 192.168.3.12/24 brd 192.168.3.255 scope global eno1
+    inet 192.168.3.6/24 brd 192.168.3.255 scope global eno1
        valid_lft forever preferred_lft forever
     inet6 fe80::6651:6ff:fe4c:ba16/64 scope link
        valid_lft forever preferred_lft forever
@@ -116,9 +116,9 @@ network:
       dhcp6: false
       interfaces: [ eno1 ]
       macaddress: 64:51:06:4c:ba:16
-      addresses: [192.168.3.12/24]
+      addresses: [192.168.3.6/24]
       nameservers:
-         addresses: [192.168.3.7]
+         addresses: [192.168.3.2]
          search: [byteworksinc.com]
       routes:
          - to: default
@@ -138,7 +138,7 @@ ip a
 
 5: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 64:51:06:4c:ba:16 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.3.12/24 brd 192.168.3.255 scope global br0
+    inet 192.168.3.6/24 brd 192.168.3.255 scope global br0
        valid_lft forever preferred_lft forever
     inet6 fe80::6651:6ff:fe4c:ba16/64 scope link
        valid_lft forever preferred_lft forever
@@ -152,7 +152,7 @@ ip a show
 2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether a0:d3:c1:1a:c8:81 brd ff:ff:ff:ff:ff:ff
     altname enp0s25
-    inet 192.168.3.13/24 brd 192.168.3.255 scope global eno1
+    inet 192.168.3.7/24 brd 192.168.3.255 scope global eno1
        valid_lft forever preferred_lft forever
     inet6 fe80::a2d3:c1ff:fe1a:c881/64 scope link
        valid_lft forever preferred_lft forever
@@ -176,9 +176,9 @@ network:
       dhcp6: false
       interfaces: [ eno1 ]
       macaddress: a0:d3:c1:1a:c8:81
-      addresses: [192.168.3.13/24]
+      addresses: [192.168.3.7/24]
       nameservers:
-         addresses: [192.168.3.7]
+         addresses: [192.168.3.2]
          search: [byteworksinc.com]
       routes:
          - to: default
@@ -198,7 +198,7 @@ ip a
 
 5: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether a0:d3:c1:1a:c8:81 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.3.13/24 brd 192.168.3.255 scope global br0
+    inet 192.168.3.7/24 brd 192.168.3.255 scope global br0
        valid_lft forever preferred_lft forever
     inet6 fe80::a2d3:c1ff:fe1a:c881/64 scope link
        valid_lft forever preferred_lft forever
