@@ -33,3 +33,13 @@ Install the KVM, QEUM, and virtlib packages.
 ```shell
 sudo apt install -y qemu-kvm virt-manager libvirt-daemon-system virtinst libvirt-clients bridge-utils nftables ovmf swtpm
 ```
+
+```shell
+sudo systemctl enable --now libvirtd
+sudo systemctl start libvirtd
+```
+
+```shell
+sudo usermod -aG kvm $USER
+sudo usermod -aG libvirt $USER
+```
