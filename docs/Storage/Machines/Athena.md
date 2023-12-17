@@ -19,13 +19,11 @@ Device       Start        End    Sectors   Size Type
 
 ```
 
-| Device           | Volume Group | Size | Type | mount          | disk              |
-|------------------|--------------|------|------|----------------|-------------------|
-| /dev/nvme0n1     | ssd-vg       | 1T   | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
-| /dev/sda         | hdd-vg       | 2T   | LVM  | /dev/sda1      | ST2000DM008-2FR1  |
-| /dev/sdb1        |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
-| /dev/sdb2        |              | 2G   | EXT4 | /boot          | ""                |
-| /dev/sdb3        | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
+| Device    | Volume Group | Size | Type | mount          | disk              |
+|-----------|--------------|------|------|----------------|-------------------|
+| /dev/sda1 |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
+| /dev/sda2 |              | 2G   | EXT4 | /boot          | ""                |
+| /dev/sda3 | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
 
 1) Make a directory for ISO images
 

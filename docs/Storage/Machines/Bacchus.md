@@ -17,6 +17,7 @@ sudo lvscan
 sudo lvs
   LV        VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
   ubuntu-lv ubuntu-vg -wi-ao---- 100.00g
+  
 ```
 
 Clean up old volumes if needed:
