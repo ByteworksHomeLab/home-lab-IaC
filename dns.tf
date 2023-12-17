@@ -45,3 +45,20 @@ resource "dns_a_record_set" "zeus" {
   ttl       = 300
 }
 
+resource "dns_a_record_set" "haproxy1" {
+  zone      = "byteworksinc.com."
+  addresses = ["192.168.3.8"]
+  name      = "haproxy1"
+  #  Default is 1 hour, but since this is a home lab, we want less
+  ttl       = 300
+}
+
+
+resource "dns_a_record_set" "haproxy2" {
+  zone      = "byteworksinc.com."
+  addresses = ["192.168.3.9"]
+  name      = "haproxy2"
+  #  Default is 1 hour, but since this is a home lab, we want less
+  ttl       = 300
+}
+

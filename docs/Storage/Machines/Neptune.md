@@ -52,34 +52,34 @@ sudo chmod g+w /isos
 ```
 
 ```shell
-sudo mkdir /hdd-pool
-sudo chgrp libvirt /hdd-pool
-sudo chmod g+w /hdd-pool
+sudo mkdir /ssd-pool
+sudo chgrp libvirt /ssd-pool
+sudo chmod g+w /ssd-pool
 ```
 
 2) Define the LVM Storage Pools
 
 
 ```shell
-virsh pool-define-as hdd-pool dir - - - - "/hdd-pool"
+virsh pool-define-as ssd-pool dir - - - - "/ssd-pool"
 ```
 
 3) Build the pool
 
 ```shell
-virsh pool-build hdd-pool 
+virsh pool-build ssd-pool 
 ```
 
 4) Initialize the new pool.
 
 ```shell
-virsh pool-start hdd-pool
+virsh pool-start ssd-pool
 ```
 
 5) Turn on autostart
 
 ```shell
-virsh pool-autostart hdd-pool
+virsh pool-autostart ssd-pool
 ```
 
 Verify status
