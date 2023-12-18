@@ -1,6 +1,6 @@
 # HAProxy
 
-https://github.com/pingcap/docs/blob/master/best-practices/haproxy-best-practices.md
+https://www.haproxy.com/blog/how-to-install-haproxy-on-ubuntu
 
 ## [ Hardware Requirements ](https://github.com/pingcap/docs/blob/master/best-practices/haproxy-best-practices.md#hardware-requirements)
 
@@ -21,6 +21,9 @@ https://github.com/pingcap/docs/blob/master/best-practices/haproxy-best-practice
 | Oracle Enterprise Linux  | 7 or 8  |
 | Ubuntu                   | LTS     |
 
+```shell
+sudo apt-get install haproxy vim-haproxy haproxy-doc
+```
 
 
 https://www.redhat.com/sysadmin/reverse-proxy-ansible
