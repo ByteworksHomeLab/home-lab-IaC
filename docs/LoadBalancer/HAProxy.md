@@ -28,3 +28,21 @@ sudo apt-get install haproxy vim-haproxy haproxy-doc
 
 https://www.redhat.com/sysadmin/reverse-proxy-ansible
 
+
+frontend homelab
+bind :80
+use_backend athena  if { path /athena } || { path_beg /athena/ }
+use_backend neptune if { path /neptune } || { path_beg /neptune/ }
+
+backend athena
+http-request replace-path /athena(/)?(.*) /\2
+server server1 neptune.byteworksinc.com:9090 check maxconn 30
+
+backend neptune
+http-request replace-path /neptune(/)?(.*) /\2
+server server1 neptune.byteworksinc.com:9090 check maxconn 30
+
+
+https://webhostinggeeks.com/howto/how-to-setup-haproxy-as-load-balancer-for-nginx-on-ubuntu/
+https://webhostinggeeks.com/howto/how-to-setup-haproxy-for-high-availability-with-keepalived/
+
