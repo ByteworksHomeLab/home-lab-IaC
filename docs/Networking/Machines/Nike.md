@@ -13,7 +13,7 @@ ip a show
 
 ```
 sudo chmod 600 /etc/netplan/00-installer-config.yaml
-sudo apt-get install openvswitch-switch
+sudo apt-get install openvswitch-switch -y
 ```
 
 Update `/etc/netplan/00-installer-config.yaml`.
@@ -36,7 +36,9 @@ network:
       macaddress: 64:51:06:4c:ba:16
       addresses: [192.168.3.6/24]
       nameservers:
-         addresses: [192.168.3.2]
+         addresses: 
+           - 8.8.8.8
+           - 1.1.1.1
          search: [byteworksinc.com]
       routes:
          - to: default

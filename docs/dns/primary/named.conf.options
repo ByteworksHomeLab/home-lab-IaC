@@ -1,0 +1,21 @@
+acl "trusted" {
+     192.168.0.0/16;
+     localhost;
+     localnets;
+ };
+
+options {
+        directory "/var/cache/bind";
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+                1.1.1.1;
+        };
+
+        dnssec-validation auto;
+
+        recursion yes;
+        allow-recursion { trusted; };
+        listen-on { 192.168.3.8; };
+};

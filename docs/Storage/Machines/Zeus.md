@@ -21,15 +21,6 @@ sudo lvs
   ubuntu-lv ubuntu-vg -wi-ao---- 100.00g
 ```
 
-Clean up old volumes if needed:
-```shell
-virsh pool-list --all
-virsh pool-destroy vmdisks
-virsh pool-delete vmdisks
-virsh pool-undefine vmdisks
-
-sudo vgremove vmdisks
-```
 
 ```shell
 df -Th
@@ -60,13 +51,18 @@ Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 
 
-Disk /dev/sdc: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
-Disk model: TOSHIBA DT01ACA1
+Disk /dev/sdc: 1.82 TiB, 2000398934016 bytes, 3907029168 sectors
+Disk model: WDC WD20EFZX-68A
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 Disklabel type: gpt
-Disk identifier: B29B15D6-CB31-4178-9738-B837F3B742BD
+Disk identifier: 025C917F-2E82-4E17-A24A-E189A4BC44DF
+
+Device       Start        End    Sectors  Size Type
+/dev/sdc1     2048    3999743    3997696  1.9G Linux RAID
+/dev/sdc2  3999744    7999487    3999744  1.9G Linux RAID
+/dev/sdc3  7999488 3907028991 3899029504  1.8T Linux RAID
 
 
 Disk /dev/sda: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
@@ -75,13 +71,12 @@ Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 Disklabel type: gpt
-Disk identifier: 895E48F6-AA33-41D1-A9B5-679EF7836F54
+Disk identifier: CCAF9C4F-8116-4EF6-88EF-FAEA70FB31FB
 
 Device       Start        End    Sectors   Size Type
 /dev/sda1     2048    2203647    2201600     1G EFI System
 /dev/sda2  2203648    6397951    4194304     2G Linux filesystem
 /dev/sda3  6397952 1953521663 1947123712 928.5G Linux filesystem
-
 
 Disk /dev/mapper/ubuntu--vg--1-ubuntu--lv: 100 GiB, 107374182400 bytes, 209715200 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -92,11 +87,11 @@ I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 | Device       | Volume Group | Size | Type | mount          | disk              |
 |--------------|--------------|------|------|----------------|-------------------|
 | /dev/nvme0n1 | ssd-vg       | 1T   | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
-| /dev/sda1    |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
+| /dev/sda1    |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1ER1  |
 | /dev/sda2    |              | 2G   | EXT4 | /boot          | ""                |
 | /dev/sda3    | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
-| /dev/sdb     | hdd-vg       | 1T   | LVM  | /dev/sdb1      | ST1000DM003-1CH1  |
-| /dev/sdc     | hdd-vg       | 1T   | LVM  | /dev/sdc1      | TOSHIBA DT01ACA1  |
+| /dev/sdb     |              | 1T   | LVM  | /dev/sdb1      | ST1000DM003-1CH1  |
+| /dev/sdc     |              | 2T   | LVM  | /dev/sdc1      | WDC WD20EFZX-68A  |
 
 1) Create a new LVM volume group
 
@@ -105,37 +100,6 @@ sudo vgcreate hdd-vg /dev/sdb
 sudo vgextend hdd-vg /dev/sdc
 sudo vgcreate ssd-vg /dev/nvme0n1p1
 ```
-
-1a) Make some space for ISO images
-
-```shell
-sudo lvcreate --name isos-lv -L 100G ubuntu-vg-1 
-  Logical volume "isos-lv" created.
-  
-sudo mkfs.ext3 /dev/ubuntu-vg-1/isos-lv
-mke2fs 1.46.5 (30-Dec-2021)
-Creating filesystem with 26214400 4k blocks and 6553600 inodes
-Filesystem UUID: 0c6a98e0-00a9-412a-8797-ea1a6307dd64
-Superblock backups stored on blocks:
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-	4096000, 7962624, 11239424, 20480000, 23887872
-
-Allocating group tables: done
-Writing inode tables: done
-Creating journal (131072 blocks): done
-Writing superblocks and filesystem accounting information: done
-
-sudo mkdir /isos
-sudo mount /dev/ubuntu-vg-1/isos-lv /isos
-sudo chgrp libvirt /isos
-sudo chmod g+w /isos
-```
-
-Ensure this file system will automatically mount the next time the server is rebooted by adding the following entry to /etc/fstab:
-
-```shell
-/dev/ubuntu-vg-1/isos-lv        /isos                ext4 defaults    0 0
-````
 
 
 2) Define the LVM Storage Pools

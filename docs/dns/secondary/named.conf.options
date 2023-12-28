@@ -1,0 +1,23 @@
+acl "trusted" {
+     192.168.3.8;
+     192.168.3.9;
+ };
+
+options {
+        directory "/var/cache/bind";
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+                1.1.1.1;
+        };
+
+        dnssec-validation auto;
+
+        forward only;
+        recursion yes;
+        allow-recursion { trusted; };
+        listen-on { 192.168.3.9; };
+        allow-query { any; };
+        allow-transfer { none; };
+};

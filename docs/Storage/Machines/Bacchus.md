@@ -52,45 +52,48 @@ Device         Start        End    Sectors   Size Type
 /dev/nvme0n1p1  2048 1953523711 1953521664 931.5G Linux LVM
 
 
-Disk /dev/sda: 1.82 TiB, 2000398934016 bytes, 3907029168 sectors
-Disk model: ST2000DM008-2FR1
+Disk /dev/sdb: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk model: TOSHIBA DT01ACA1
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
-Disklabel type: gpt
-Disk identifier: B5AA8AF1-7B30-445A-AEB4-4E573E8455E4
-
-Device     Start        End    Sectors  Size Type
-/dev/sda1   2048 3907028991 3907026944  1.8T Linux LVM
 
 
-Disk /dev/sdb: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk /dev/sdc: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
 Disk model: ST1000DM003-1CH1
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 Disklabel type: gpt
-Disk identifier: A70F39B7-A968-4E9E-B4C8-C81AC37EA89B
+Disk identifier: 65C4F092-8F37-4C00-8A00-FA30446B4C8C
 
 Device       Start        End    Sectors   Size Type
-/dev/sdb1     2048    2203647    2201600     1G EFI System
-/dev/sdb2  2203648    6397951    4194304     2G Linux filesystem
-/dev/sdb3  6397952 1953521663 1947123712 928.5G Linux filesystem
+/dev/sdc1     2048    2203647    2201600     1G EFI System
+/dev/sdc2  2203648    6397951    4194304     2G Linux filesystem
+/dev/sdc3  6397952 1953521663 1947123712 928.5G Linux filesystem
 
 
-Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 100 GiB, 107374182400 bytes, 209715200 sectors
+Disk /dev/sda: 1.82 TiB, 2000398934016 bytes, 3907029168 sectors
+Disk model: ST2000DM008-2FR1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 928.46 GiB, 996923146240 bytes, 1947115520 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 ```
 
-| Device           | Volume Group | Size | Type | mount          | disk              |
-|------------------|--------------|------|------|----------------|-------------------|
-| /dev/nvme0n1     | ssd-vg       | 1T   | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
-| /dev/sda         | hdd-vg       | 2T   | LVM  | /dev/sda1      | ST2000DM008-2FR1  |
-| /dev/sdb1        |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
-| /dev/sdb2        |              | 2G   | EXT4 | /boot          | ""                |
-| /dev/sdb3        | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
+| Device       | Volume Group | Size | Type | mount          | disk              |
+|--------------|--------------|------|------|----------------|-------------------|
+| /dev/nvme0n1 | ssd-vg       | 1T   | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
+| /dev/sda     | hdd-vg       | 2T   | LVM  | /dev/sda1      | ST2000DM008-2FR1  |
+| /dev/sdb     |              | 1T   | LVM  | /dev/sda1      | TOSHIBA DT01ACA1  |
+| /dev/sdc1    |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
+| /dev/sdc2    |              | 2G   | EXT4 | /boot          | ""                |
+| /dev/sdc3    | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
 
 1) Create a new LVM volume group
 
@@ -98,37 +101,6 @@ I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 sudo vgcreate hdd-vg /dev/sda
 sudo vgcreate ssd-vg /dev/nvme0n1p1
 ```
-
-1a) Make some space for ISO images
-
-```shell
-sudo lvcreate --name isos-lv -L 100G ubuntu-vg 
-  Logical volume "isos-lv" created.
-  
-sudo mkfs.ext3 /dev/ubuntu-vg/isos-lv
-mke2fs 1.46.5 (30-Dec-2021)
-Creating filesystem with 26214400 4k blocks and 6553600 inodes
-Filesystem UUID: 0c6a98e0-00a9-412a-8797-ea1a6307dd64
-Superblock backups stored on blocks:
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-	4096000, 7962624, 11239424, 20480000, 23887872
-
-Allocating group tables: done
-Writing inode tables: done
-Creating journal (131072 blocks): done
-Writing superblocks and filesystem accounting information: done
-
-sudo mkdir /isos
-sudo mount /dev/ubuntu-vg-1/isos-lv /isos
-sudo chgrp libvirt /isos
-sudo chmod g+w /isos
-```
-
-Ensure this file system will automatically mount the next time the server is rebooted by adding the following entry to /etc/fstab:
-
-```shell
-/dev/ubuntu-vg/isos-lv        /isos                ext4 defaults    0 0
-````
 
 
 2) Define the LVM Storage Pools

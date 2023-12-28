@@ -1,11 +1,11 @@
 
 # ldap and bind
-resource "dns_a_record_set" "poseiden" {
-  zone      = "byteworksinc.com."
-  addresses = ["192.168.3.2"]
-  name      = "poseiden"
-  ttl       = 300
-}
+#resource "dns_a_record_set" "poseiden" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.2"]
+#  name      = "poseiden"
+#  ttl       = 300
+#}
 
 # KVM Host (with KeyCloak and HAProxy)
 resource "dns_a_record_set" "neptune" {
@@ -46,18 +46,39 @@ resource "dns_a_record_set" "zeus" {
   ttl       = 300
 }
 
-resource "dns_a_record_set" "haproxy1" {
-  zone      = "byteworksinc.com."
-  addresses = ["192.168.3.8"]
-  name      = "haproxy1"
-  ttl       = 300
-}
-
-
-resource "dns_a_record_set" "haproxy2" {
-  zone      = "byteworksinc.com."
-  addresses = ["192.168.3.9"]
-  name      = "haproxy2"
-  ttl       = 300
-}
+#
+#resource "dns_a_record_set" "haproxy1" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.10"]
+#  name      = "haproxy1"
+#  ttl       = 300
+#}
+#
+#resource "dns_a_record_set" "haproxy2" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.11"]
+#  name      = "haproxy2"
+#  ttl       = 300
+#}
+#
+#resource "dns_a_record_set" "nginx1" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.12"]
+#  name      = "nginx1"
+#  ttl       = 300
+#}
+#
+#resource "dns_a_record_set" "nginx2" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.13"]
+#  name      = "nginx2"
+#  ttl       = 300
+#}
+#
+#resource "dns_a_record_set" "homelab" {
+#  zone      = "byteworksinc.com."
+#  addresses = ["192.168.3.50"]
+#  name      = "homelab"
+#  ttl       = 300
+#}
 

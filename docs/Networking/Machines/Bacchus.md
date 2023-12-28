@@ -14,7 +14,7 @@ ip a show
 
 ```
 sudo chmod 600 /etc/netplan/00-installer-config.yaml
-sudo apt-get install openvswitch-switch
+sudo apt-get install openvswitch-switch -y
 ```
 
 Update `/etc/netplan/00-installer-config.yaml`.
@@ -64,4 +64,4 @@ ip a
        valid_lft forever preferred_lft forever
     inet6 fe80::2e44:fdff:fe19:81d1/64 scope link
        valid_lft forever preferred_lft forever
-```
+``` 

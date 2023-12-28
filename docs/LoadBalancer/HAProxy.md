@@ -21,8 +21,14 @@ https://www.haproxy.com/blog/how-to-install-haproxy-on-ubuntu
 | Oracle Enterprise Linux  | 7 or 8  |
 | Ubuntu                   | LTS     |
 
+The improved Let's Encrypt support starts in haproxy-2.8, but Ubnutu 22.04 has haproxy-2.4.4. Follow these instructions to get 2.8 (update the commands to 2.8):
+
+https://linuxhint.com/install-configure-haproxy-ubuntu-22-04/
+
 ```shell
-sudo apt-get install haproxy vim-haproxy haproxy-doc
+sudo add-apt-repository ppa:vbernat/haproxy-2.8 -y
+sudo apt-get update
+sudo apt install haproxy -y
 ```
 
 

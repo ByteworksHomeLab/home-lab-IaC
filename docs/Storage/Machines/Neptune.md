@@ -4,23 +4,29 @@ Show file system
 
 ```shell
 sudo pvscan
-  PV /dev/sda3   VG ubuntu-vg       lvm2 [235.42 GiB / 135.42 GiB free]
-  Total: 1 [235.42 GiB] / in use: 1 [235.42 GiB] / in no VG: 0 [0   ]
+  PV /dev/sda3      VG ubuntu-vg       lvm2 [235.42 GiB / 0    free]
   
 sudo vgs
   VG        #PV #LV #SN Attr   VSize   VFree
-  ubuntu-vg   1   1   0 wz--n- 235.42g 135.42g
+  ubuntu-vg   1   1   0 wz--n- 235.42g      0
 
 sudo lvscan
-  ACTIVE            '/dev/ubuntu-vg/ubuntu-lv' [100.00 GiB] inherit
+  ACTIVE            '/dev/ubuntu-vg/ubuntu-lv' [235.42 GiB] inherit
   
 df -Th
 Filesystem                        Type   Size  Used Avail Use% Mounted on
-/dev/mapper/ubuntu--vg-ubuntu--lv ext4    98G   16G   78G  17% /
-/dev/sda2                         ext4   2.0G  252M  1.6G  14% /boot
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4    98G   29G   65G  31% /
+/dev/sda2                         ext4   2.0G  258M  1.6G  15% /boot
 /dev/sda1                         vfat   1.1G  6.1M  1.1G   1% /boot/efi
 
  sudo fdisk -l 
+
+Disk /dev/nvme0n1: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk model: WD Blue SN580 1TB
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
 
 Disk /dev/sda: 238.47 GiB, 256060514304 bytes, 500118192 sectors
 Disk model: KingFast
@@ -37,25 +43,21 @@ Device       Start       End   Sectors   Size Type
 
 ```
 
-| Device           | Volume Group | Size | Type | mount          | disk              |
-|------------------|--------------|------|------|----------------|-------------------|
-| /dev/sdb1        |              | 1G   | VFAT | /boot/efi      | KingFast          |
-| /dev/sdb2        |              | 2G   | EXT4 | /boot          | ""                |
-| /dev/sdb3        | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
+| Device           | Volume Group | Size   | Type | mount          | disk              |
+|------------------|--------------|--------|------|----------------|-------------------|
+| /dev/nvme0n1     | ssd-vg       | 1T     | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
+| /dev/sda1        |              | 1G     | VFAT | /boot/efi      | KingFast          |
+| /dev/sda2        |              | 2G     | EXT4 | /boot          | ""                |
+| /dev/sda3        | ubuntu-vg    | 235.4G | LVM  | na             | ""                |
 
-1) Create the directories
 
-```shell
-sudo mkdir /isos
-sudo chgrp libvirt /isos
-sudo chmod g+w /isos
-```
+1) Create the volume group
 
 ```shell
-sudo mkdir /ssd-pool
-sudo chgrp libvirt /ssd-pool
-sudo chmod g+w /ssd-pool
+sudo pvcreate  /dev/nvme0n1
+sudo vgcreate ssd-vg /dev/nvme0n1
 ```
+
 
 2) Define the LVM Storage Pools
 

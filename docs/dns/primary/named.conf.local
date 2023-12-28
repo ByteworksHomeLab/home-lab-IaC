@@ -1,0 +1,11 @@
+zone "byteworksinc.com" {
+    type primary;
+    file "/etc/bind/zones/db.byteworksinc.com";
+    allow-transfer { 192.168.3.9; };
+};
+
+zone "168.192.in-addr.arpa" {
+    type primary;
+    file "/etc/bind/zones/db.192.168";
+    allow-transfer { 192.168.3.9; };
+};

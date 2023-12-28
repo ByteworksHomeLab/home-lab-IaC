@@ -14,7 +14,7 @@ terraform {
 
     dns = {
       source  = "hashicorp/dns"
-      version = "3.3.2"
+      version = "3.4.0"
     }
 #    acme = {
 #      source  = "vancluever/acme"
@@ -29,8 +29,8 @@ provider "aws" {
 
 provider "dns" {
   update {
-    server        = "192.168.3.2"
-    key_name      = "tsig-key."
+    server        = "192.168.3.8"
+    key_name      = "byteworksinc.com."
     key_algorithm = "hmac-sha256"
     key_secret    = var.tsig_key
   }

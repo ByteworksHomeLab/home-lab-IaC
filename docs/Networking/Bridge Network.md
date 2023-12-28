@@ -2,7 +2,13 @@
 
 https://www.wpdiaries.com/kvm-on-ubuntu/
 
-To disable automated network configuration, create a file named `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` with this content:
+Make sure networks are disabled in Cloud Config. Check for this file:
+
+```shell
+sudo cat /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
+```
+
+If it isn't there, to disable automated network configuration, create a file named `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` with this content:
 
 ```yaml
 {config: disabled}
@@ -10,7 +16,7 @@ To disable automated network configuration, create a file named `/etc/cloud/clou
 
 Disable `netfilter` for bridges.
 
-create /etc/sysctl.d/bridge.conf with the content:
+create `/etc/sysctl.d/bridge.conf` with the content:
 
 ```text
 net.bridge.bridge-nf-call-ip6tables=0
@@ -23,7 +29,7 @@ sudo modprobe br_netfilter
 sudo sysctl -p /etc/sysctl.conf
 ```
 
-Create the file /etc/udev/rules.d/99-bridge.rules:
+Create the file `/etc/udev/rules.d/99-bridge.rules`:
 
 ```text
 ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", RUN+="/sbin/sysctl -p /etc/sysctl.d/bridge.conf"
