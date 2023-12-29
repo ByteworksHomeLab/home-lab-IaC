@@ -19,66 +19,10 @@ Device       Start        End    Sectors   Size Type
 
 ```
 
-| Device    | Volume Group | Size | Type | mount          | disk              |
-|-----------|--------------|------|------|----------------|-------------------|
-| /dev/sda1 |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1CH1  |
-| /dev/sda2 |              | 2G   | EXT4 | /boot          | ""                |
-| /dev/sda3 | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
+| Disk         | Model         | Size  | Type | Mount     | Purpose                  |
+|--------------|---------------|-------|------|-----------|--------------------------|
+| /dev/sda     | 30TT253X2-1T  | 512GB | EXT4 | /         | Boot, images, containers |
+| /dev/nvme0n1 | WD Blue SN580 | 1TB   | ZFS  | /mnt/vol1 | ESB - Admin Cluster      |
 
-1) Make a directory for ISO images
+Follow the ZFS instructions in the Storage section README file.
 
-```shell
-sudo mkdir /isos
-sudo chgrp libvirt /isos
-sudo chmod g+w /isos
-```
-
-2) Define the LVM Storage Pools
-
-
-```shell
-virsh pool-define-as hdd-pool dir - - - - "/hdd-pool"
-```
-
-3) Build the pool
-
-```shell
-virsh pool-build hdd-pool 
-```
-
-4) Initialize the new pool.
-
-```shell
-virsh pool-start hdd-pool
-```
-
-5) Turn on autostart
-
-```shell
-virsh pool-autostart hdd-pool
-```
-
-Verify status
-
-```shell
-virsh pool-list --all
- Name               State    Autostart
-----------------------------------------
- hdd-pool           active   yes
-```
-
-5) Create a test volume on each
-
-```shell
-virsh vol-create-as hdd-pool volume1 8G
-```
-
-Verify
-
-```shell
-virsh vol-list hdd-pool
- Name      Path
-------------------------------------------
- hdd-volume1   /dev/hdd-pool/hdd-volume1
-  
-```

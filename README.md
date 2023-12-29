@@ -10,3 +10,6 @@ This is the physical hardware used in the lab.
 ![Home Lab Rack](images%2FIMG_0326.png)
 
 See the [docs](docs) folder for documentation.
+
+
+https://c-nergy.be/blog/?p=19228

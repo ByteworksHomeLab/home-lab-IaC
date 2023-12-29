@@ -84,105 +84,18 @@ Sector size (logical/physical): 512 bytes / 4096 bytes
 I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 ```
 
-| Device       | Volume Group | Size | Type | mount          | disk              |
-|--------------|--------------|------|------|----------------|-------------------|
-| /dev/nvme0n1 | ssd-vg       | 1T   | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
-| /dev/sda1    |              | 1G   | VFAT | /boot/efi      | ST1000DM003-1ER1  |
-| /dev/sda2    |              | 2G   | EXT4 | /boot          | ""                |
-| /dev/sda3    | ubuntu-vg    | 1T*  | LVM  | na             | ""                |
-| /dev/sdb     |              | 1T   | LVM  | /dev/sdb1      | ST1000DM003-1CH1  |
-| /dev/sdc     |              | 2T   | LVM  | /dev/sdc1      | WDC WD20EFZX-68A  |
+| Disk         | Model            | Size | Type | Mount     | Purpose                  |
+|--------------|------------------|------|------|-----------|--------------------------|
+| /dev/sda     | ST1000DM003-1ER1 | 1TB  | LVM  | /         | Boot, images, containers |
+| /dev/sdb     | ST1000DM003-1CH1 | 1TB  | ZFS  | mnt/vol3  | Local storage pool       |
+| /dev/sdc     | WDC WD20EFZX-68A | 2TB  | ZFS  | /mnt/vol2 | ESB - Shared Services    |
+| /dev/nvme0n1 | WD Blue SN580    | 1TB  | ZFS  | /mnt/vol1 | ESB - Dev Cluster        |
 
-1) Create a new LVM volume group
+Install ZFS.
 
 ```shell
-sudo vgcreate hdd-vg /dev/sdb
-sudo vgextend hdd-vg /dev/sdc
-sudo vgcreate ssd-vg /dev/nvme0n1p1
+sudo apt update
+sudo apt install -y zfsutils-linux
 ```
+Repeat the following commands for each non-boot drive.
 
-
-2) Define the LVM Storage Pools
-
-
-```shell
-sudo virsh pool-define-as hdd-pool logical - - /dev/sdb hdd-vg \ /dev/hdd-pool
-sudo virsh pool-define-as ssd-pool logical - - /dev/nvme0n1p1 ssd-vg \ /dev/ssd-pool
-
-```
-
-3) Build the pool
-
-```shell
-virsh pool-build hdd-pool --overwrite
-virsh pool-build ssd-pool --overwrite
-
-```
-
-4) Initialize the new pool.
-
-```shell
-virsh pool-start hdd-pool
-virsh pool-start ssd-pool
-```
-Verify
-
-```shell
-sudo vgs
-  VG               #PV #LV #SN Attr   VSize    VFree
-  hdd-pool           1   0   0 wz--n-   <1.82t   <1.82t
-  ssd-pool           1   0   0 wz--n- <931.51g <931.51g
-  ubuntu-vg          1   1   0 wz--n- <928.46g <828.46g
-```
-
-5) Turn on autostart
-
-```shell
-virsh pool-autostart hdd-pool
-virsh pool-autostart ssd-pool
-```
-
-Verify status
-
-```shell
-virsh pool-list --all
- Name               State    Autostart
-----------------------------------------
- hdd-pool           active   yes
- ssd-pool           active   yes
-```
-
-5) Create a test volume on each
-
-```shell
-virsh vol-create-as hdd-pool volume1 8G
-virsh vol-create-as ssd-pool volume1 8G
-```
-
-Verify
-
-```shell
-virsh vol-list hdd-pool
- Name      Path
-------------------------------------------
- hdd-volume1   /dev/hdd-pool/hdd-volume1
-
-virsh vol-list ssd-pool
- Name          Path
------------------------------------------------
- ssd-volume1   /dev/ssd-pool/ssd-volume1
- 
- sudo lvscan
-  ACTIVE            '/dev/ubuntu-vg/ubuntu-lv' [100.00 GiB] inherit
-  ACTIVE            '/dev/ubuntu-vg/isos-lv' [100.00 GiB] inherit
-  ACTIVE            '/dev/ssd-vg/volume1' [8.00 GiB] inherit
-  ACTIVE            '/dev/hdd-vg/volume1' [8.00 GiB] inherit
-  
-sudo lvs
-  LV        VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-  volume1   hdd-vg    -wi-a-----   8.00g
-  volume1   ssd-vg    -wi-a-----   8.00g
-  isos-lv   ubuntu-vg -wi-ao---- 100.00g
-  ubuntu-lv ubuntu-vg -wi-ao---- 100.00g
-  
-```

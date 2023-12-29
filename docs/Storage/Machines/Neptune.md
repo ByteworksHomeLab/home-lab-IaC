@@ -43,68 +43,8 @@ Device       Start       End   Sectors   Size Type
 
 ```
 
-| Device           | Volume Group | Size   | Type | mount          | disk              |
-|------------------|--------------|--------|------|----------------|-------------------|
-| /dev/nvme0n1     | ssd-vg       | 1T     | LVM  | /dev/nvme0n1p1 | WD Blue SN580 1TB |
-| /dev/sda1        |              | 1G     | VFAT | /boot/efi      | KingFast          |
-| /dev/sda2        |              | 2G     | EXT4 | /boot          | ""                |
-| /dev/sda3        | ubuntu-vg    | 235.4G | LVM  | na             | ""                |
+| Disk         | Model         | Size  | Type | Mount     | Purpose                  |
+|--------------|---------------|-------|------|-----------|--------------------------|
+| /dev/sda     | KingFast      | 512GB | LVM  | /         | Boot, images, containers |
+| /dev/nvme0n1 | WD Blue SN580 | 1TB   | ZFS  | /mnt/vol1 | ESB - Admin Cluster      |
 
-
-1) Create the volume group
-
-```shell
-sudo pvcreate  /dev/nvme0n1
-sudo vgcreate ssd-vg /dev/nvme0n1
-```
-
-
-2) Define the LVM Storage Pools
-
-
-```shell
-virsh pool-define-as ssd-pool dir - - - - "/ssd-pool"
-```
-
-3) Build the pool
-
-```shell
-virsh pool-build ssd-pool 
-```
-
-4) Initialize the new pool.
-
-```shell
-virsh pool-start ssd-pool
-```
-
-5) Turn on autostart
-
-```shell
-virsh pool-autostart ssd-pool
-```
-
-Verify status
-
-```shell
-virsh pool-list --all
- Name               State    Autostart
-----------------------------------------
- hdd-pool           active   yes
-```
-
-5) Create a test volume on each
-
-```shell
-virsh vol-create-as hdd-pool volume1 8G
-```
-
-Verify
-
-```shell
-virsh vol-list hdd-pool
- Name      Path
-------------------------------------------
- hdd-volume1   /dev/hdd-pool/hdd-volume1
-  
-```

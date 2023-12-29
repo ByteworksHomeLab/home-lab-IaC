@@ -2,37 +2,32 @@
 
 Follow these instructions: 
 
-* [How to configure bind as a private network dns server on Ubuntu 22-04](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-22-04)
-* [Configure an administrative sudo user, `ubuntu` ](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04)
+* [Ubuntu 22-04 Domain Name Service (DNS)](https://ubuntu.com/server/docs/service-domain-name-service-dns)
 
 Security:
 
-See this articles:
+See these articles:
 * https://aaronsplace.co.uk/blog/2021-08-15-terraform-and-dynamic-dns-updates.html
-* https://bind9.readthedocs.io/en/v9.16.20/advanced.html
-* https://movingpackets.net/2013/06/10/bind-enabling-tsig-for-zone-transfers/
 
 ```shell
-sudo mkdir -p /etc/bind/corp/tsig
-cd /etc/bind/corp/tsig
+sudo mkdir -p /etc/bind/tsig
+cd /etc/bind/tsig
 ```
 
-Verify the output.
+Create a verify a tsig key
 
 ```shell
 tsig-keygen -a hmac-sha256
 key "tsig-key" {
 	algorithm hmac-sha256;
-	secret "JgmBEVS5dnA4aUGoVeeQOfzfhfwE6cyqmvfgtMMuJUY=";
+	secret "tsa8U9VeFLA8slMgUpACX7Z66i/K5zSCzhuli/hu9aY=";
 };
 
-Create the key file, `/etc/bind/tsig/tsig.key`, with the random string at the end of the last line above.
+Create the key file, `/etc/bind/tsig/tsig.key`, and add the output from above.
 
 ```shell
-sudo vi /etc/bind/corp/byteworksinc.com-tsig.key
+sudo vi /etc/bind/tsig/tsig.key
 ```
-
-Add the output generated above.
 
 Include the tsig key in the named.conf.
 
@@ -42,16 +37,46 @@ sudo vi /etc/bind/named.conf
 Include the file:
 
 ```text
-include "/etc/bind/corp/byteworksinc.com-tsig.key";
+include "/etc/bind/tsig.key";
 ```
 Check your work:
 
 ```shell
-  sudo named-checkzone byteworksinc.com /etc/bind/zones/db.byteworksinc.com
-  sudo named-checkzone 168.192.in-addr.arpa /etc/bind/zones/db.192.168
+  sudo named-checkzone byteworksinc.com /etc/bind/db.byteworksinc.com
+  sudo named-checkzone 192.in-addr.arpa /etc/bind/db.192
   sudo named-checkconf
-  sudo systemctl restart bind9
+  sudo systemctl restart bind9.service
 ```
 
 
 Add the secret value to the `terraform-tfvars` file.
+
+# AppArmor
+
+Be see to update AppArmor
+
+https://stackoverflow.com/questions/76623550/permissions-error-when-creating-an-a-record
+
+Edit `/etc/apparmor.d/usr.sbin.named`
+```shell
+  # Bind Updates
+  /etc/bind/zones/** rw,
+```
+
+Then run these commands:
+```shell
+chown bind:bind -R /etc/bind
+setcap 'cap_net_bind_service=+ep' /usr/sbin/named
+
+systemctl restart apparmor
+systemctl restart bind9.service
+```
+https://documentation.ubuntu.com/lxd/en/latest/remotes/
+
+https://cloud-images.ubuntu.com/releases/
+
+lxc image list ubuntu: 22.04
+
+lxc image list images:
+
+
