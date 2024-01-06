@@ -37,7 +37,7 @@ network:
       macaddress: 2c:44:fd:19:81:d1
       addresses: [192.168.3.5/24]
       nameservers:
-        addresses: [192.168.3.2]
+        addresses: [192.168.3.8,192.168.3.9]
         search: [byteworksinc.com]
       routes:
         - to: default

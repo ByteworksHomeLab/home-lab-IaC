@@ -23,3 +23,35 @@ Host athena
     HostName 192.168.3.4
     User stevemitchell
 ```
+## Share the public keys
+
+Gather the contents of all the public keys and add them to each hosts' ~/.ssh/authorized_key file. Make sure you can `ssh` between hosts.
+
+## Lock down the servers
+
+```shell
+sudo vi /etc/ssh/sshd_config
+```
+
+Edit the following in the Authentication section of the `sshd_config` file to block SSH logins:
+
+```shell
+PasswordAuthentication no
+PubkeyAuthentication yes
+```
+
+Restart SSH
+
+```shell
+sudo systemctl restart ssh
+```
+Generate a key
+
+```shell
+ssh-keygen
+
+cat ~/.ssh/id_rsa.pub
+```
+
+Add the to `~/.ssh/authorized_keys` on all the other hosts in the LXD cluster.
+

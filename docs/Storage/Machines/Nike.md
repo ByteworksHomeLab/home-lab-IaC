@@ -20,15 +20,6 @@ sudo lvs
   ubuntu-lv ubuntu-vg -wi-ao---- 100.00g
 ```
 
-Clean up old volumes if needed:
-```shell
-virsh pool-list --all
-virsh pool-destroy vmdisks
-virsh pool-delete vmdisks
-virsh pool-undefine vmdisks
-
-sudo vgremove vmdisks
-```
 ```shell
 df -Th
 Filesystem                        Type   Size  Used Avail Use% Mounted on

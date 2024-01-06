@@ -13,11 +13,11 @@ ip a show
 ```
 
 ```
-sudo chmod 600 /etc/netplan/01-network-manager-all.yaml
+sudo chmod 600 /etc/netplan/00-installer-config.yaml
 sudo apt-get install openvswitch-switch
 ```
 
-Update `/etc/netplan/01-network-manager-all.yaml`.
+Update `/etc/netplan/00-installer-config.yaml`.
 
 ```yaml
 network:
@@ -34,7 +34,7 @@ network:
       macaddress: ec:b1:d7:6d:a4:b7
       addresses: [192.168.3.4/24]
       nameservers:
-         addresses: [192.168.3.2]
+         addresses: [192.168.3.8,192.168.3.9]
          search: [byteworksinc.com]
       routes:
          - to: default
@@ -61,35 +61,3 @@ ip a show
        valid_lft forever preferred_lft forever
 ```
 
-## Remove virbr0 from all machines
-
-```shell
-sudo virsh
-net-destroy default
-net-undefine default
-exit
-```
-
-## Add the bridge to KVM
-
-Create file `br0.xml.`
-Create a file `br0.xml` in the home directory
-
-```xml
-<network>
-  <name>br0</name>
-  <forward mode="bridge"/>
-  <bridge name="br0"/>
-</network>
-```
-
-The following on all machines:
-
-```shell
-sudo virsh
-net-define /home/stevemitchell/br0.xml
-net-start br0
-net-autostart br0
-net-list
-exit
-```

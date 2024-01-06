@@ -38,38 +38,3 @@ ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", RUN+="/sbin/sysctl -
 # Machine Bridge Networks
 
 Do the actual machine setup for each machine as shown in the machines network.
-
-# Configure the br0 network in virsh
-
-## Remove virbr0 from all machines
-
-```shell
-sudo virsh
-net-destroy default
-net-undefine default
-exit
-```
-
-## Add the bridge to KVM
-
-Create file `br0.xml.`
-Create a file `br0.xml` in the home directory
-
-```xml
-<network>
-  <name>br0</name>
-  <forward mode="bridge"/>
-  <bridge name="br0"/>
-</network>
-```
-
-The following on all machines:
-
-```shell
-sudo virsh
-net-define /home/stevemitchell/br0.xml
-net-start br0
-net-autostart br0
-net-list
-exit
-```

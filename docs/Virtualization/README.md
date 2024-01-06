@@ -3,6 +3,10 @@
 ## Install LXD
 
 ```shell
+sudo snap install lxd
+```
+
+```shell
 sudo lxd init
 Would you like to use LXD clustering? (yes/no) [default=no]: yes
 What IP address or DNS name should be used to reach this server? [default=192.168.3.3]:

@@ -1,3 +1,11 @@
+resource "dns_a_record_set" "poseiden" {
+  zone = "byteworksinc.com."
+  name = "poseiden"
+  addresses = [
+    "192.168.3.2",
+  ]
+  ttl = 300
+}
 resource "dns_a_record_set" "neptune" {
   zone = "byteworksinc.com."
   name = "neptune"
@@ -35,6 +43,24 @@ resource "dns_a_record_set" "zeus" {
   name = "zeus"
   addresses = [
     "192.168.3.7",
+  ]
+  ttl = 300
+}
+
+resource "dns_a_record_set" "nas" {
+  zone = "byteworksinc.com."
+  name = "nas"
+  addresses = [
+    "192.168.3.10",
+  ]
+  ttl = 300
+}
+
+resource "dns_a_record_set" "cluster-mgmt" {
+  zone = "byteworksinc.com."
+  name = "cluster-mgmt"
+  addresses = [
+    "192.168.3.66",
   ]
   ttl = 300
 }

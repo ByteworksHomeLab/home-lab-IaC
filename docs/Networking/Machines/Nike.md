@@ -36,9 +36,7 @@ network:
       macaddress: 64:51:06:4c:ba:16
       addresses: [192.168.3.6/24]
       nameservers:
-         addresses: 
-           - 8.8.8.8
-           - 1.1.1.1
+         addresses: [192.168.3.8,192.168.3.9]
          search: [byteworksinc.com]
       routes:
          - to: default

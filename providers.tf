@@ -16,6 +16,12 @@ terraform {
       source  = "hashicorp/dns"
       version = "3.4.0"
     }
+
+    lxd = {
+      source = "terraform-lxd/lxd"
+      version = "1.10.4"
+    }
+
 #    acme = {
 #      source  = "vancluever/acme"
 #      version = "~> 2.5.3"
@@ -34,6 +40,21 @@ provider "dns" {
     key_algorithm = "hmac-sha256"
     key_secret    = var.tsig_key
   }
+}
+
+# https://registry.terraform.io/providers/terraform-lxd/lxd/latest/docs
+provider "lxd" {
+  generate_client_certificates = true
+  accept_remote_certificate    = true
+
+  lxd_remote {
+    name     = "lxd-athena"
+    scheme   = "https"
+    address  = "192.168.3.4"
+    password = var.lxd_password
+    default  = true
+  }
+
 }
 
 #provider "acme" {

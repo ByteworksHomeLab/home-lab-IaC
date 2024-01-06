@@ -1,3 +1,7 @@
+variable "lxd_password" {
+  type      = string
+  sensitive = true
+}
 variable "tsig_key" {
   type      = string
   sensitive = true

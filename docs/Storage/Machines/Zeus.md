@@ -21,7 +21,6 @@ sudo lvs
   ubuntu-lv ubuntu-vg -wi-ao---- 100.00g
 ```
 
-
 ```shell
 df -Th
 Filesystem                           Type   Size  Used Avail Use% Mounted on
