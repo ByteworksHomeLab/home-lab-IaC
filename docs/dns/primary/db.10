@@ -1,4 +1,4 @@
-TL    604800
+$TTL    604800
 @       IN      SOA     ns1.byteworksinc.com. ubuntu.byteworksinc.com. (
                               6         ; Serial
                          604800         ; Refresh
@@ -11,5 +11,5 @@ TL    604800
         IN      NS      ns2.byteworksinc.com.
 
 ; PTR Records
-8.3     IN      PTR     ns1.byteworksinc.com.   ; 192.168.3.8
-9.3     IN      PTR     ns2.byteworksinc.com.   ; 192.168.3.9
+8.0     IN      PTR     ns1.byteworksinc.com.   ; 10.0.0.8
+9.0     IN      PTR     ns2.byteworksinc.com.   ; 10.0.0.9

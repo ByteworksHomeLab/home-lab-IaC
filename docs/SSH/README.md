@@ -20,7 +20,7 @@ Host *
 
 # Configuration for host "Athena"
 Host athena
-    HostName 192.168.3.4
+    HostName 10.0.0.4
     User stevemitchell
 ```
 ## Share the public keys

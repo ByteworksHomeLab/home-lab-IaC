@@ -1,4 +1,4 @@
-TTL    604800
+$TTL    604800
 @       IN      SOA     ns1.byteworksinc.com. ubuntu.byteworksinc.com. (
                               7         ; Serial
                          604800         ; Refresh
@@ -11,8 +11,7 @@ TTL    604800
 @       IN      NS      ns2.byteworksinc.com.
 
 ; name servers - A records
-ns1.byteworksinc.com.   IN      A       192.168.3.8
-ns2.byteworksinc.com.   IN      A       192.168.3.9
+ns1.byteworksinc.com.   IN      A       10.0.0.8
+ns2.byteworksinc.com.   IN      A       10.0.0.9
 
-; 192.168.0.0/16 - A records
-
+; 10.0.0.0/16 - A records

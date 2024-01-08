@@ -35,7 +35,7 @@ provider "aws" {
 
 provider "dns" {
   update {
-    server        = "192.168.3.8"
+    server        = "10.0.0.8"
     key_name      = "tsig-key."
     key_algorithm = "hmac-sha256"
     key_secret    = var.tsig_key
@@ -50,7 +50,7 @@ provider "lxd" {
   lxd_remote {
     name     = "lxd-athena"
     scheme   = "https"
-    address  = "192.168.3.4"
+    address  = "10.0.0.4"
     password = var.lxd_password
     default  = true
   }

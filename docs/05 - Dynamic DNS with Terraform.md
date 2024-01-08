@@ -51,8 +51,8 @@ include "/etc/bind/zones.rfc1918";
 zone "byteworksinc.com" {
     type master;
     file "/etc/bind/pz/db.byteworksinc.com";
-    allow-transfer { 192.168.3.8; };
-    also-notify { 192.168.3.8; };
+    allow-transfer { 10.0.0.8; };
+    also-notify { 10.0.0.8; };
     update-policy {
        grant tsig-key zonesub any;
     };

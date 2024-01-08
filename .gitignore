@@ -5,3 +5,4 @@
 /.terraform.lock.hcl
 /docs/LoadBalancer/LetsEncryptThumbnails.md
 /docs/SSH/authorized_keys
+/docs/SSH/config

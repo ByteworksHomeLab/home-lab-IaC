@@ -9,7 +9,7 @@ sudo snap install lxd
 ```shell
 sudo lxd init
 Would you like to use LXD clustering? (yes/no) [default=no]: yes
-What IP address or DNS name should be used to reach this server? [default=192.168.3.3]:
+What IP address or DNS name should be used to reach this server? [default=10.0.0.3]:
 Are you joining an existing cluster? (yes/no) [default=no]: no
 What member name should be used to identify this server in the cluster? [default=neptune]:
 Do you want to configure a new local storage pool? (yes/no) [default=yes]:
@@ -40,7 +40,7 @@ From the node to add:
 ```shell
 sudo lxd init
 Would you like to use LXD clustering? (yes/no) [default=no]: yes
-What IP address or DNS name should be used to reach this server? [default=192.168.3.4]:
+What IP address or DNS name should be used to reach this server? [default=10.0.0.4]:
 Are you joining an existing cluster? (yes/no) [default=no]: yes
 Do you have a join token? (yes/no/[token]) [default=no]: eyJzZXJ2ZXJfbmFtZSI6ImF0aGVuYSIsImZpbmdlcnByaW50IjoiMzI4N2Y0NWZiYTIyNjhmNTE0MzNjMmYxNzhhNWM2NjgxOGEwZjEwMjZjYjM3NGYyY2VjMjI0NzFkY2Y4ZGEzZSIsImFkZHJlc3NlcyI6WyIxOTIuMTY4LjMuMzo4NDQzIl0sInNlY3JldCI6ImYwODllZjM1ZDgzZDk0MTQ0M2ViMmM2NTI5NDZjODM4MjRmYmZiODRlOTMxNjA1NGU0ODNhYjZiZjFlYzJmOTMiLCJleHBpcmVzX2F0IjoiMjAyMy0xMi0yOFQxOTo0Nzo1Ni4zMDU5MDQ4MDYtMDY6MDAifQ==
 All existing data is lost when joining a cluster, continue? (yes/no) [default=no] yes
@@ -66,10 +66,10 @@ lxc launch ubuntu:22.04 ns1
 
 Use `lxc list` to monitor the status.
 
-| NAME |  STATE  |        IPV4         | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
-|------|---------|---------------------|------|-----------|-----------|----------|
-| ns1  | RUNNING | 192.168.3.52 (eth0) |      | CONTAINER | 0         | neptune  |
-| ns2  | RUNNING | 192.168.3.53 (eth0) |      | CONTAINER | 0         | athena   |
+| NAME |  STATE  |        IPV4       | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
+|------|---------|-------------------|------|-----------|-----------|----------|
+| ns1  | RUNNING | 10.0.0.52 (eth0) |      | CONTAINER | 0         | neptune  |
+| ns2  | RUNNING | 10.0.0.53 (eth0) |      | CONTAINER | 0         | athena   |
 
 ## Example - Install Bind 9
 
@@ -83,10 +83,10 @@ lxc shell ns2
 lxc list
 ```
 
-| NAME |  STATE  |        IPV4        | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
-|------|---------|--------------------|------|-----------|-----------|----------|
-| ns1  | RUNNING | 192.168.3.8 (eth0) |      | CONTAINER | 0         | neptune  |
-| ns2  | RUNNING | 192.168.3.9 (eth0) |      | CONTAINER | 0         | athena   |
+| NAME |  STATE  |        IPV4      | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
+|------|---------|------------------|------|-----------|-----------|----------|
+| ns1  | RUNNING | 10.0.0.8 (eth0) |      | CONTAINER | 0         | neptune  |
+| ns2  | RUNNING | 10.0.0.9 (eth0) |      | CONTAINER | 0         | athena   |
 
 Install bind9
 

@@ -1,9 +1,29 @@
 # ZFS Storage Setup
 
-Look at your devices before starting:
+The `lsblk` utility shows our block storage that you'll be working with.
 
 ```shell
-sudo lsblk
+$ lsblk
+
+NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0 111.9M  1 loop /snap/lxd/24322
+loop1                       7:1    0  63.4M  1 loop /snap/core20/1974
+loop2                       7:2    0  53.3M  1 loop /snap/snapd/19457
+loop3                       7:3    0  40.4M  1 loop /snap/snapd/20671
+sda                         8:0    0   1.8T  0 disk
+├─sda1                      8:1    0   1.8T  0 part
+└─sda9                      8:9    0     8M  0 part
+sdb                         8:16   0 931.5G  0 disk
+├─sdb1                      8:17   0 931.5G  0 part
+└─sdb9                      8:25   0     8M  0 part
+sdc                         8:32   0 931.5G  0 disk
+├─sdc1                      8:33   0     1G  0 part /boot/efi
+├─sdc2                      8:34   0     2G  0 part /boot
+└─sdc3                      8:35   0 928.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0   100G  0 lvm  /
+nvme0n1                   259:0    0 931.5G  0 disk
+├─nvme0n1p1               259:1    0 931.5G  0 part
+└─nvme0n1p9               259:2    0     8M  0 part
 ```
 
 ## Install ZFS
