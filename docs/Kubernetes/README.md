@@ -227,7 +227,6 @@ echo -e "overlay\nbr_netfilter" >> /etc/modules
 ```
 
 ```shell
-lxc stop kubeadm-leader
 lxc config set kubeadm-leader linux.kernel_modules ip_tables,ip6_tables,netlink_diag,nf_nat,overlay,br_netfilter
 lxc config set kubeadm-leader security.privileged "true"
 lxc config set kubeadm-leader security.nesting "true"
